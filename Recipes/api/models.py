@@ -10,10 +10,6 @@ class Category(models.Model):
         return self.title
 
 
-def get_default_recipe_category():
-    return Category.objects.get_or_create(title="Others")[0]
-
-
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
     desc = models.CharField(max_length=200)
@@ -21,8 +17,7 @@ class Recipe(models.Model):
     ingredients = RichTextField()
     steps = RichTextField()
     category = models.ForeignKey(
-        "Category", on_delete=models.SET(get_default_recipe_category)
-    )
+        "Category", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     preview = models.ImageField(null=True)
 

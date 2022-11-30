@@ -1,28 +1,30 @@
 import React from "react";
-import * as ReactDOMClient from 'react-dom/client';
+import * as ReactDOMClient from "react-dom/client";
 import { Routes, BrowserRouter, Route } from "react-router-dom";
-import RecipeList from "./RecipeList.js";
+import RecipeList from "./RecipeList";
 import CategoryList from "./CategoryList";
 import RecipeDetail from "./RecipeDetail";
 import CategoryDetail from "./CategoryDetail";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/recipes" element={<RecipeList />}>
-          <Route path=":id" element={<RecipeDetail />} />
-        </Route>
-        <Route path="/categories" element={<CategoryList />}>
-          <Route path=":id" element={<CategoryDetail />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="ui/" element={<RecipeDetail />} >
+        <Route path="ui/recipes/" element={<RecipeList />}/>
+        <Route path="ui/recipes/:id" element={<RecipeDetail />} />
+        <Route path="ui/categories/" element={<CategoryList />}/>
+        <Route path="ui/categories/:id" element={<CategoryDetail />} />
+      </Route>
+    </Routes>
   );
 };
 
 const container = document.getElementById("App");
-const root = ReactDOMClient.createRoot(container)
-root.render(<App />);
+const root = ReactDOMClient.createRoot(container);
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);
 
 export default App;

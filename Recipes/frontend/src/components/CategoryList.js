@@ -12,7 +12,7 @@ class CategoryList extends Component {
   }
 
   componentDidMount() {
-    fetch("../api/categories")
+    fetch("../../../api/categories")
       .then(response => {
         if (response.status > 400) {
           return this.setState(() => {
