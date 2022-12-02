@@ -1,34 +1,37 @@
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import parse from 'html-react-parser';
+import parse from "html-react-parser";
 
 const RecipeDetail = () => {
-  const params = useParams();
-  const id = params.id;
+  const { id } = useParams();
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    const url = `../api/recipes/${id}`;
-
     const fetchData = () => {
-      fetch(`../api/recipes/1`)
+      fetch(`../../api/recipes/${id}`)
         .then((response) => {
-          console.log("zaza");
-          console.log(response);
-          return response.json()
+          return response.json();
         })
         .then((data) => {
-          console.log(data);
           setData(data);
         });
     };
     fetchData();
   }, []);
 
-  return data && 
+  return (
+    data && (
       <div className="recipe">
         <h1>{data.title}</h1>
-        <h2>Category: {data.category_title}</h2>
+        <br />
+        <h2>
+          Category:{" "}
+          <Link to={`/ui/categories/${data.category}`}>
+            {data.category_title}
+          </Link>
+        </h2>
+        <br />
         <div className="cooktime">
           <h3>{data.cook_time}</h3>
         </div>
@@ -37,6 +40,8 @@ const RecipeDetail = () => {
         <br />
         <h2>{parse(data.steps)}</h2>
       </div>
+    )
+  );
 };
 
 export default RecipeDetail;

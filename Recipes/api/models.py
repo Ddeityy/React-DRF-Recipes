@@ -16,8 +16,7 @@ class Recipe(models.Model):
     cook_time = models.CharField(max_length=10, default="")
     ingredients = RichTextField()
     steps = RichTextField()
-    category = models.ForeignKey(
-        "Category", on_delete=models.CASCADE)
+    category = models.ForeignKey("Category", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     preview = models.ImageField(null=True)
 

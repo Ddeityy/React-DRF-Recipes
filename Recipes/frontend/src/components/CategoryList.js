@@ -1,50 +1,44 @@
-import React, { Component } from "react";
-import './main.css'
+import "./main.css";
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
-class CategoryList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: [],
-      loaded: false,
-      placeholder: "Loading"
-    };
-  }
+const CategoryList = () => {
+  const [data, setData] = useState(null);
 
-  componentDidMount() {
-    fetch("../../../api/categories")
-      .then(response => {
-        if (response.status > 400) {
-          return this.setState(() => {
-            return { placeholder: "Something went wrong!" };
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        this.setState(() => {
-          return {
-            data,
-            loaded: true
-          };
+  useEffect(() => {
+    const fetchData = () => {
+      fetch("../../api/categories/")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          setData(data);
         });
-      });
-  }
+    };
+    fetchData();
+  }, []);
 
-  render() {
-    return (
-      <ul>
-        {this.state.data.map(category => {
+  return (
+    <ul>
+      {data &&
+        data.map((category) => {
           return (
             <div className="container" key={category.id}>
-                <h1>{category.title}</h1>
-                <div className="preview" style={{background: `url(${category.preview})`}}></div>
+              <h1>
+                <Link key={category.id} to={`/ui/categories/${category.id}`}>
+                  {category.title}
+                </Link>
+              </h1>
+              <div
+                className="preview"
+                style={{ background: `url(${category.preview})` }}
+              ></div>
             </div>
           );
         })}
-      </ul>
-    );
-  }
-}
+    </ul>
+  );
+};
 
 export default CategoryList;

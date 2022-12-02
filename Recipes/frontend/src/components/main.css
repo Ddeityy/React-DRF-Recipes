@@ -12,8 +12,9 @@
 }
 
 .recipe {
-    padding: 20px 1000px 0px 100px;
-    font-weight: bold;
+    padding: 20px 800px 0px 100px;
+    background-color: azure;
+    font-size: smaller;
 }
 
 .cooktime {
@@ -32,20 +33,5 @@
     size: cover;
     display: block;
     margin: auto;
-}
-
-.preview h1 {
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0, 0.4); /* Black w/opacity/see-through */
-    color: white;
-    font-weight: bold;
-    border: 3px solid #f1f1f1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 80%;
-    padding: 20px;
-    text-align: center;
+    background-position: calc(50% - 50px) 50%;
 }
